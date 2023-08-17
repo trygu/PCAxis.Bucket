@@ -1,38 +1,28 @@
-# This is a basic workflow to help you get started with Actions
-
-name: BuildAndRunTests
+name: .NET
 
 on:
   push:
-    branches: ["main"]
+    branches: [ "main" ]
   pull_request:
-    branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    branches: [ "main" ]
 
 jobs:
   build:
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
-        os: [windows-latest, ubuntu-latest]
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 6.0.x
-
-      - name: Restore dependencies
-        run: dotnet restore
-
-      - name: Build the application
-        run: dotnet build --no-restore --configuration ${{ matrix.configuration }}
-
-      - name: Execute unit tests
-        run: dotnet test --verbosity normal
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies for PCAxis.S3.Client
+      run: dotnet restore
+      working-directory: ./PCAxis.S3/PCAxis.S3.Client
+    - name: Build PCAxis.S3.Client
+      run: dotnet build --no-restore
+      working-directory: ./PCAxis.S3/PCAxis.S3.Client
+    - name: Test PCAxis.S3.Client.Tests
+      run: dotnet test --no-build --verbosity normal
+      working-directory: ./PCAxis.S3/PCAxis.S3.Client.Tests
