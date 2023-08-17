@@ -1,37 +1,38 @@
-name: .NET 6.0 Cross-Build
+# This is a basic workflow to help you get started with Actions
+
+name: BuildAndRunTests
 
 on:
   push:
-    branches: [ main ]
+    branches: ["main"]
   pull_request:
-    branches: [ main ]
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
   build:
-    name: Build on ${{ matrix.os }} with .NET 6.0
-    
-    runs-on: ${{ matrix.os }}
-    
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest, macOS-latest]
-      fail-fast: false
+        configuration: [Debug, Release]
+        os: [windows-latest, ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
-    
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '6.0'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
 
-    - name: List directory contents
-      run: ls -al
+      - name: Restore dependencies
+        run: dotnet restore
 
-    - name: Build project
-      run: dotnet build --configuration Release
+      - name: Build the application
+        run: dotnet build --no-restore --configuration ${{ matrix.configuration }}
 
-    - name: Run tests (if any)
-      run: dotnet test --no-build --verbosity normal
+      - name: Execute unit tests
+        run: dotnet test --verbosity normal
