@@ -8,7 +8,6 @@ obj/
 *.suo
 *.user
 *.userprefs
-*.sln.docstates
 
 # Rider files
 .idea/
@@ -69,11 +68,6 @@ $RECYCLE.BIN/
 *.tsbuildinfo
 
 # End of line normalization
-*.sln
-*.csproj
-*.cshtml
-*.config
-*.json
 
 # Rider workspace
 .idea/
