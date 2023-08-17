@@ -18,6 +18,10 @@ jobs:
       fail-fast: false
 
     steps:
+
+    - name: List directory contents
+      run: ls -al
+    
     - name: Checkout code
       uses: actions/checkout@v2
 
