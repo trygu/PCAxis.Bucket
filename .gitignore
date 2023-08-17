@@ -1,0 +1,81 @@
+# .NET build and debugging directories
+bin/
+obj/
+
+# Visual Studio files
+.vscode/
+.vs/
+*.suo
+*.user
+*.userprefs
+*.sln.docstates
+
+# Rider files
+.idea/
+
+# User-specific files
+*.suo
+*.user
+*.userprefs
+
+# NuGet
+packages/
+
+# MSBuild binary and log files
+*.dll
+*.exe
+*.pdb
+*.log
+*.config
+
+# Entity Framework files
+Model.cs
+Model.Designer.cs
+*_Res.Designer.cs
+
+# User-specific files
+*.suo
+*.user
+*.userprefs
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Visual Studio 2019
+.vs2019/
+
+# Rider
+.idea/
+
+# User-specific files
+*.suo
+*.user
+*.userprefs
+
+# TypeScript
+*.tsbuildinfo
+
+# End of line normalization
+*.sln
+*.csproj
+*.cshtml
+*.config
+*.json
+
+# Rider workspace
+.idea/
+*.sln.iml
+
