@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCAxis.S3.Client", "PCAxis.S3.Client\PCAxis.S3.Client.csproj", "{C83132C3-A6A7-40A2-8EDC-2479386ABDE5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCAxis.S3.Client.Tests", "PCAxis.S3.Client.Tests\PCAxis.S3.Client.Tests.csproj", "{5347CBAB-C3F9-4D9B-A912-B96A4D4302A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C83132C3-A6A7-40A2-8EDC-2479386ABDE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C83132C3-A6A7-40A2-8EDC-2479386ABDE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C83132C3-A6A7-40A2-8EDC-2479386ABDE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C83132C3-A6A7-40A2-8EDC-2479386ABDE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5347CBAB-C3F9-4D9B-A912-B96A4D4302A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5347CBAB-C3F9-4D9B-A912-B96A4D4302A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5347CBAB-C3F9-4D9B-A912-B96A4D4302A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5347CBAB-C3F9-4D9B-A912-B96A4D4302A8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7238C55-06E5-4E57-AF4B-EFBC7D8C68F2}
+	EndGlobalSection
+EndGlobal
