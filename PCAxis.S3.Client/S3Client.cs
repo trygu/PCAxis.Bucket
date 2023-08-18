@@ -1,4 +1,7 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.CompilerServices;
 using Amazon.S3;
 using Amazon.S3.Model;
 
@@ -10,14 +13,22 @@ namespace PCAxis.S3.Client
     {
         internal readonly IAmazonS3 client;
         private readonly string? defaultBucketName;
-        public S3Client(string endpoint, string accessKey, string secretKey, string? defaultBucketName = null, IAmazonS3? amazonS3 = null)
+
+        public S3Client(string endpoint, string accessKey, string secretKey, bool useGCS = false, string? defaultBucketName = null, IAmazonS3? amazonS3 = null)
         {
-            client = amazonS3 ?? new AmazonS3Client(accessKey, secretKey, new AmazonS3Config
+            var clientConfig = new AmazonS3Config
             {
                 ServiceURL = endpoint,
                 ForcePathStyle = true,
                 UseHttp = true
-            });
+            };
+
+            if (useGCS)
+            {
+                clientConfig.SignatureVersion = "V4";
+            }
+
+            client = amazonS3 ?? new AmazonS3Client(accessKey, secretKey, clientConfig);
             this.defaultBucketName = defaultBucketName;
         }
 
