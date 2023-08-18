@@ -8,14 +8,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Amazon.S3;
 using Amazon.S3.Model;
-using PCAxis.S3.Client;
+using PCAxis.Bucket.Client;
 
-namespace PCAxis.S3.Client.Tests
+namespace PCAxis.Bucket.Client.Tests
 {
     [TestClass]
-    public class S3ClientTests
+    public class BucketClientTests
     {
-        private S3Client? s3Client;
+        private BucketClient? bucketClient;
         private Mock<IAmazonS3>? mockAmazonS3;
 
         public TestContext? TestContext { get; set; }
@@ -56,13 +56,13 @@ namespace PCAxis.S3.Client.Tests
             mockAmazonS3.Setup(client => client.ListObjectsV2Async(It.IsAny<ListObjectsV2Request>(), default(CancellationToken)))
                 .ReturnsAsync(mockListObjectsResponse);
 
-            s3Client = new S3Client("http://s3.dapla.ssb.no", "fakeKey", "fakeSecret", useGCS, "fakePxBucket", mockAmazonS3!.Object);
+            bucketClient = new BucketClient("http://s3.dapla.ssb.no", "fakeKey", "fakeSecret", useGCS, "fakePxBucket", mockAmazonS3!.Object);
         }
 
         [TestMethod]
         public void ListFiles_ReturnsExpectedFiles()
         {
-            var files = s3Client!.ListFiles();
+            var files = bucketClient!.ListFiles();
 
             Assert.AreEqual(2, files.Count);
             Assert.AreEqual("file1.px", files.First().Key);
@@ -75,7 +75,7 @@ namespace PCAxis.S3.Client.Tests
             mockAmazonS3!.Setup(client => client.PutBucketAsync(It.IsAny<PutBucketRequest>(), default(CancellationToken)))
                 .ReturnsAsync(new PutBucketResponse());
 
-            s3Client!.CreateBucket("testBucket");
+            bucketClient!.CreateBucket("testBucket");
 
             mockAmazonS3.Verify(client => client.PutBucketAsync(It.Is<PutBucketRequest>(req => req.BucketName == "testBucket"), default(CancellationToken)), Times.Once);
         }
@@ -90,7 +90,7 @@ namespace PCAxis.S3.Client.Tests
             mockAmazonS3!.Setup(client => client.PutObjectAsync(It.IsAny<PutObjectRequest>(), default(CancellationToken)))
                 .ReturnsAsync(new PutObjectResponse());
 
-            s3Client!.UploadFile("fileKey", mockStream);
+            bucketClient!.UploadFile("fileKey", mockStream);
 
             mockAmazonS3.Verify(client => client.PutObjectAsync(It.Is<PutObjectRequest>(req => req.Key == "fileKey"), default(CancellationToken)), Times.Once);
         }
@@ -101,7 +101,7 @@ namespace PCAxis.S3.Client.Tests
             mockAmazonS3!.Setup(client => client.DeleteObjectAsync(It.IsAny<DeleteObjectRequest>(), default(CancellationToken)))
                 .ReturnsAsync(new DeleteObjectResponse());
 
-            s3Client!.DeleteFile("fileKey");
+            bucketClient!.DeleteFile("fileKey");
 
             mockAmazonS3.Verify(client => client.DeleteObjectAsync(It.Is<DeleteObjectRequest>(req => req.Key == "fileKey"), default(CancellationToken)), Times.Once);
         }
@@ -112,7 +112,7 @@ namespace PCAxis.S3.Client.Tests
             mockAmazonS3!.Setup(client => client.DeleteBucketAsync(It.IsAny<DeleteBucketRequest>(), default(CancellationToken)))
                 .ReturnsAsync(new DeleteBucketResponse());
 
-            s3Client!.DeleteBucket("testBucket");
+            bucketClient!.DeleteBucket("testBucket");
 
             mockAmazonS3.Verify(client => client.DeleteBucketAsync(It.Is<DeleteBucketRequest>(req => req.BucketName == "testBucket"), default(CancellationToken)), Times.Once);
         }
@@ -127,7 +127,7 @@ namespace PCAxis.S3.Client.Tests
                 .ReturnsAsync(mockGetObjectResponse);
 
             string content = "";
-            s3Client!.ReadFile("fileKey", stream =>
+            bucketClient!.ReadFile("fileKey", stream =>
             {
                 using var reader = new StreamReader(stream);
                 content = reader.ReadToEnd();
@@ -140,7 +140,7 @@ namespace PCAxis.S3.Client.Tests
         public void ListFiles_GCS_ReturnsExpectedFiles()
         {
             SetupForGCS();
-            var files = s3Client!.ListFiles();
+            var files = bucketClient!.ListFiles();
 
             Assert.AreEqual(2, files.Count);
             Assert.AreEqual("file1.px", files.First().Key);
@@ -154,7 +154,7 @@ namespace PCAxis.S3.Client.Tests
             mockAmazonS3!.Setup(client => client.PutBucketAsync(It.IsAny<PutBucketRequest>(), default(CancellationToken)))
                 .ReturnsAsync(new PutBucketResponse());
 
-            s3Client!.CreateBucket("testBucket");
+            bucketClient!.CreateBucket("testBucket");
 
             mockAmazonS3.Verify(client => client.PutBucketAsync(It.Is<PutBucketRequest>(req => req.BucketName == "testBucket"), default(CancellationToken)), Times.Once);
         }
@@ -168,7 +168,7 @@ namespace PCAxis.S3.Client.Tests
             mockAmazonS3!.Setup(client => client.PutObjectAsync(It.IsAny<PutObjectRequest>(), default(CancellationToken)))
                 .ReturnsAsync(new PutObjectResponse());
 
-            s3Client!.UploadFile("fileKey", mockStream);
+            bucketClient!.UploadFile("fileKey", mockStream);
 
             mockAmazonS3.Verify(client => client.PutObjectAsync(It.Is<PutObjectRequest>(req => req.Key == "fileKey"), default(CancellationToken)), Times.Once);
         }
@@ -180,7 +180,7 @@ namespace PCAxis.S3.Client.Tests
             mockAmazonS3!.Setup(client => client.DeleteObjectAsync(It.IsAny<DeleteObjectRequest>(), default(CancellationToken)))
                 .ReturnsAsync(new DeleteObjectResponse());
 
-            s3Client!.DeleteFile("fileKey");
+            bucketClient!.DeleteFile("fileKey");
 
             mockAmazonS3.Verify(client => client.DeleteObjectAsync(It.Is<DeleteObjectRequest>(req => req.Key == "fileKey"), default(CancellationToken)), Times.Once);
         }
@@ -192,7 +192,7 @@ namespace PCAxis.S3.Client.Tests
             mockAmazonS3!.Setup(client => client.DeleteBucketAsync(It.IsAny<DeleteBucketRequest>(), default(CancellationToken)))
                 .ReturnsAsync(new DeleteBucketResponse());
 
-            s3Client!.DeleteBucket("testBucket");
+            bucketClient!.DeleteBucket("testBucket");
 
             mockAmazonS3.Verify(client => client.DeleteBucketAsync(It.Is<DeleteBucketRequest>(req => req.BucketName == "testBucket"), default(CancellationToken)), Times.Once);
         }
@@ -208,7 +208,7 @@ namespace PCAxis.S3.Client.Tests
                 .ReturnsAsync(mockGetObjectResponse);
 
             string content = "";
-            s3Client!.ReadFile("fileKey", stream =>
+            bucketClient!.ReadFile("fileKey", stream =>
             {
                 using var reader = new StreamReader(stream);
                 content = reader.ReadToEnd();

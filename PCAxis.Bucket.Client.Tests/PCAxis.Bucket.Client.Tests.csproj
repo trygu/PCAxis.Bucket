@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PCAxis.S3.Client\PCAxis.S3.Client.csproj" />
+    <ProjectReference Include="..\PCAxis.Bucket.Client\PCAxis.Bucket.Client.csproj" />
   </ItemGroup>
 
 </Project>

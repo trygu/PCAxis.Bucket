@@ -5,20 +5,20 @@ using System.Runtime.CompilerServices;
 using Amazon.S3;
 using Amazon.S3.Model;
 
-[assembly: InternalsVisibleTo("PCAxis.S3.Client.Tests")]
+[assembly: InternalsVisibleTo("PCAxis.Bucket.Client.Tests")]
 
-namespace PCAxis.S3.Client
+namespace PCAxis.Bucket.Client
 {
     /// <summary>
     /// Provides functionality for interacting with S3 (or S3-compatible) services.
     /// </summary>
-    public class S3Client
+    public class BucketClient
     {
         internal readonly IAmazonS3 client;
         private readonly string? defaultBucketName;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="S3Client"/> class.
+        /// Initializes a new instance of the <see cref="BucketClient"/> class.
         /// </summary>
         /// <param name="endpoint">The endpoint URL of the S3 service.</param>
         /// <param name="accessKey">The access key for the S3 service.</param>
@@ -26,7 +26,7 @@ namespace PCAxis.S3.Client
         /// <param name="useGCS">If set to true, will use Google Cloud Storage's signature version V4. Defaults to false.</param>
         /// <param name="defaultBucketName">The default bucket name to use if none is specified in methods. Defaults to null.</param>
         /// <param name="amazonS3">An optional custom S3 client instance. Defaults to null.</param>
-        public S3Client(string endpoint, string accessKey, string secretKey, bool useGCS = false, string? defaultBucketName = null, IAmazonS3? amazonS3 = null)
+        public BucketClient(string endpoint, string accessKey, string secretKey, bool useGCS = false, string? defaultBucketName = null, IAmazonS3? amazonS3 = null)
         {
             var clientConfig = new AmazonS3Config
             {
