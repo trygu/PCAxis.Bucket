@@ -1,14 +1,8 @@
-using System;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Amazon.S3;
 using Amazon.S3.Model;
-using PxTools.Bucket.Client;
 
 namespace PxTools.Bucket.Client.Tests
 {
