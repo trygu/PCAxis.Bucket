@@ -5,7 +5,7 @@
         <Nullable>enable</Nullable>
         <Version>0.0.1</Version>
         <Authors>Trygve Falch</Authors>
-        <PackageProjectUrl>mailto:trygve.falch@gmail.com</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/trygu/PxTools.Bucket</PackageProjectUrl>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="AWSSDK.S3" Version="3.7.201.16" />
