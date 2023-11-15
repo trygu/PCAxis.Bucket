@@ -9,7 +9,7 @@ You can use the `BucketClient` for both Amazon S3 and Google Cloud Storage based
 ### For Amazon S3:
 
 ```csharp
-using PCAxis.Bucket.Client;
+using PxTools.Bucket.Client;
 
 class Program
 {

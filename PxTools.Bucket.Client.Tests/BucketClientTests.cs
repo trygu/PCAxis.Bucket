@@ -8,9 +8,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Amazon.S3;
 using Amazon.S3.Model;
-using PCAxis.Bucket.Client;
+using PxTools.Bucket.Client;
 
-namespace PCAxis.Bucket.Client.Tests
+namespace PxTools.Bucket.Client.Tests
 {
     [TestClass]
     public class BucketClientTests

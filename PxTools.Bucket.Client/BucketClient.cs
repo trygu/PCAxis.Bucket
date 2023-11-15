@@ -5,9 +5,9 @@ using System.Runtime.CompilerServices;
 using Amazon.S3;
 using Amazon.S3.Model;
 
-[assembly: InternalsVisibleTo("PCAxis.Bucket.Client.Tests")]
+[assembly: InternalsVisibleTo("PxTools.Bucket.Client.Tests")]
 
-namespace PCAxis.Bucket.Client
+namespace PxTools.Bucket.Client
 {
     /// <summary>
     /// Provides functionality for interacting with S3 (or S3-compatible) services.
