@@ -23,7 +23,8 @@ namespace PxTools.Bucket.Client
         /// <param name="useGCS">If set to true, will use Google Cloud Storage's signature version V4. Defaults to false.</param>
         /// <param name="defaultBucketName">The default bucket name to use if none is specified in methods. Defaults to null.</param>
         /// <param name="amazonS3">An optional custom S3 client instance. Defaults to null.</param>
-        public BucketClient(string endpoint, string accessKey, string secretKey, bool useGCS = false, string? defaultBucketName = null, IAmazonS3? amazonS3 = null)
+        /// <param name="sessionToken">An optional session token.Defaults to null.</param>
+        public BucketClient(string endpoint, string accessKey, string secretKey, bool useGCS = false, string? defaultBucketName = null, IAmazonS3? amazonS3 = null, string? sessionToken = null)
         {
             var clientConfig = new AmazonS3Config
             {
@@ -37,9 +38,18 @@ namespace PxTools.Bucket.Client
                 clientConfig.SignatureVersion = "V4";
             }
 
-            client = amazonS3 ?? new AmazonS3Client(accessKey, secretKey, clientConfig);
+            if (sessionToken != null)
+            {
+                client = amazonS3 ?? new AmazonS3Client(accessKey, secretKey, sessionToken, clientConfig);
+            }
+            else
+            {
+                client = amazonS3 ?? new AmazonS3Client(accessKey, secretKey, clientConfig);
+            }
+
             this.defaultBucketName = defaultBucketName;
         }
+
 
         /// <summary>
         /// Creates a new bucket.
