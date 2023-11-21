@@ -50,7 +50,7 @@ namespace PxTools.Bucket.Client.Tests
             mockAmazonS3.Setup(client => client.ListObjectsV2Async(It.IsAny<ListObjectsV2Request>(), default(CancellationToken)))
                 .ReturnsAsync(mockListObjectsResponse);
 
-            bucketClient = new BucketClient("http://s3.dapla.ssb.no", "fakeKey", "fakeSecret", useGCS, "fakePxBucket", mockAmazonS3!.Object);
+            bucketClient = new BucketClient("http://s3.dapla.ssb.no", "fakeKey", "fakeSecret", null, useGCS, "fakePxBucket", mockAmazonS3!.Object);
         }
 
         [TestMethod]
